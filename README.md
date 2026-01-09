@@ -1,96 +1,154 @@
-# Todo Application - Phase 2
+# TaskFlow - Full-Stack Todo Application
 
-This is a full-stack web application with a Next.js frontend and FastAPI backend, evolving from the original CLI-based todo application.
+![Hackathon II - Phase 2 Complete](./public/banner.png)
 
-## Features
-### Phase 1 (Console App)
-- Add new tasks
-- View all tasks
-- Update task descriptions
-- Delete tasks
-- Mark tasks as complete
+<div align="center">
 
-### Phase 2 (Web App)
-- Modern web interface with Next.js
-- Responsive design with Tailwind CSS
-- Premium SaaS UI (Slate-900 background, Indigo-600 buttons)
-- Lucide icons for enhanced UX
-- FastAPI backend with PostgreSQL database
-- Full CRUD operations (Add, List, Update, Delete, Complete)
-- Persistent storage with Neon Serverless PostgreSQL
+**Hackathon II • Phase 2 Complete • Spec-Driven Development**
 
-## Project Structure
+[![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-blue?style=flat-square&logo=postgresql)](https://neon.tech/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
-```
-todo-hackathon/
-├── backend_temp/          # FastAPI backend
-├── web-app/              # Next.js frontend
-├── apps/console_app/     # Phase 1 console application (preserved)
-└── specs/                # Specifications
-```
+</div>
 
-## Backend Setup
+---
 
-1. Navigate to the backend directory:
+## ✅ Phase 2 Requirements - All Complete
+
+### Basic Level (Core Essentials)
+| Feature | Status | Description |
+|---------|--------|-------------|
+| Add Task | ✅ | Create new todo items |
+| Delete Task | ✅ | Remove tasks from the list |
+| Update Task | ✅ | Modify existing task details |
+| View Task List | ✅ | Display all tasks |
+| Mark as Complete | ✅ | Toggle task completion status |
+
+### Phase 2 Requirements
+| Feature | Status | Description |
+|---------|--------|-------------|
+| JWT Authentication | ✅ | Better Auth + FastAPI token-based auth |
+| User Data Isolation | ✅ | Row-level privacy via user_id |
+| PostgreSQL Database | ✅ | Neon Serverless PostgreSQL |
+| RESTful API | ✅ | FastAPI + SQLModel |
+| Responsive Frontend | ✅ | Next.js 14 App Router |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
+- Python 3.9+
+- PostgreSQL (Neon account)
+
+### 1. Clone & Install
+
 ```bash
-cd backend_temp
-```
+git clone https://github.com/ibrahim-tayyab/taskflow-fullstack.git
+cd taskflow-fullstack
 
-2. Install Python dependencies:
-```bash
+# Frontend
+cd web-app
+npm install
+
+# Backend
+cd ../backend_workaround
 pip install -r requirements.txt
 ```
 
-3. Start the backend server:
-```bash
-uvicorn main:app --reload
+### 2. Environment Setup
+
+**Frontend** (`web-app/.env.local`):
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-The backend will run on `http://localhost:8000`
+**Backend** (`.env`):
+```env
+DATABASE_URL=your_neon_connection_string
+BETTER_AUTH_SECRET=your_secret_key
+```
 
-## Frontend Setup
+### 3. Run
 
-1. Navigate to the web-app directory:
 ```bash
+# Terminal 1: Backend (port 8000)
+cd backend_workaround
+python -m uvicorn main:app --reload --port 8000
+
+# Terminal 2: Frontend (port 3000)
 cd web-app
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
 
-The frontend will run on `http://localhost:3000`
+🎉 **Open http://localhost:3000**
 
-## API Endpoints
+---
 
-- `GET /api/tasks` - Get all tasks
-- `POST /api/tasks` - Create a new task
-- `GET /api/tasks/{id}` - Get a specific task
-- `PUT /api/tasks/{id}` - Update a task
-- `PATCH /api/tasks/{id}/complete` - Update task completion status
-- `DELETE /api/tasks/{id}` - Delete a task
-- `GET /api/health` - Health check
+## 📡 API Endpoints
 
-## Environment Variables
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/signup` | Create account + get JWT |
+| POST | `/api/auth/login` | Login + get JWT |
 
-The frontend uses `NEXT_PUBLIC_API_URL` to connect to the backend. This is set in `.env.local`.
+### Tasks (JWT Required)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/tasks/` | Get user's tasks |
+| POST | `/api/tasks/` | Create task |
+| PUT | `/api/tasks/{id}` | Update task |
+| DELETE | `/api/tasks/{id}` | Delete task |
+| PATCH | `/api/tasks/{id}/complete` | Toggle completion |
 
-## Phase 1 Console App
+---
 
-To run the original console application:
+## 🏗️ Project Structure
 
-1. Navigate to the console app directory:
-```bash
-cd apps/console_app
+```
+taskflow-fullstack/
+├── web-app/                 # Next.js Frontend
+│   ├── src/
+│   │   ├── app/            # Pages
+│   │   ├── components/     # UI components
+│   │   └── services/       # API services
+│   └── public/             # Static assets
+│
+├── backend_workaround/      # FastAPI Backend
+│   ├── api/v1/endpoints/   # API routes
+│   ├── core/               # Security
+│   ├── models/             # Database models
+│   └── main.py
+│
+├── banner.png              # Project banner
+└── vercel.json             # Deployment config
 ```
 
-2. Run the application:
-```bash
-python -m src.main
-```
+---
+
+## 🔒 Security Features
+
+- **Password Hashing**: PBKDF2-SHA256
+- **JWT Tokens**: 7-day expiry
+- **Data Isolation**: All queries filter by user_id
+- **No Session DB Lookups**: Pure JWT verification
+
+---
+
+## 👨‍💻 Developer
+
+**Ibrahim Tayyab**
+
+[![GitHub](https://img.shields.io/badge/GitHub-ibrahim--tayyab-black?style=flat-square&logo=github)](https://github.com/ibrahim-tayyab)
+
+---
+
+<div align="center">
+
+Made with ❤️ for **Hackathon II - Panaversity**
+
+</div>

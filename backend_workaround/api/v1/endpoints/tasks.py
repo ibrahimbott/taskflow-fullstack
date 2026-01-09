@@ -67,16 +67,21 @@ def update_task(
     return updated_task
 
 
+from pydantic import BaseModel
+
+class CompleteRequest(BaseModel):
+    completed: bool
+
 @router.patch("/{task_id}/complete", response_model=Task)
 def complete_task(
     task_id: int,
-    completed: bool,
+    request: CompleteRequest,
     session: Session = Depends(get_session),
     task_service: TaskService = Depends(get_task_service),
     user_id: str = Depends(get_current_user_id)
 ) -> Task:
     """Toggle task completion (only if it belongs to the user)."""
-    task = task_service.complete_task(session, task_id, user_id, completed)
+    task = task_service.complete_task(session, task_id, user_id, request.completed)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
     return task

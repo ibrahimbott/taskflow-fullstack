@@ -124,3 +124,34 @@ def get_current_user(session: Session = Depends(get_session)):
     """Get current user info - requires valid JWT in Authorization header"""
     # This will be implemented with the security dependency
     pass
+
+
+@router.delete("/admin/clear-all")
+def clear_all_data(session: Session = Depends(get_session)):
+    """
+    ADMIN ENDPOINT: Delete all users and tasks from the database.
+    WARNING: This will permanently delete all data!
+    """
+    from models.task import Task
+    
+    try:
+        # Delete all tasks first (due to potential foreign key constraints)
+        tasks_deleted = session.exec(select(Task)).all()
+        for task in tasks_deleted:
+            session.delete(task)
+        
+        # Delete all users
+        users_deleted = session.exec(select(User)).all()
+        for user in users_deleted:
+            session.delete(user)
+        
+        session.commit()
+        
+        return {
+            "message": "All data cleared successfully",
+            "users_deleted": len(users_deleted),
+            "tasks_deleted": len(tasks_deleted)
+        }
+    except Exception as e:
+        session.rollback()
+        raise HTTPException(status_code=500, detail=f"Failed to clear data: {str(e)}")

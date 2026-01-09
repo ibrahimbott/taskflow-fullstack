@@ -6,23 +6,27 @@ import Navbar from '../components/Navbar'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Todo App',
-  description: 'A modern todo application with Next.js and FastAPI',
+    title: 'TaskFlow - Todo App',
+    description: 'A modern todo application with JWT authentication',
+    icons: {
+        icon: '/favicon.png',
+        apple: '/favicon.png',
+    },
 }
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode
+    children: React.ReactNode
 }) {
-  return (
-    <html lang="en">
-      <body className={`${inter.className} bg-slate-900 min-h-screen`}>
-        <Navbar />
-        <div className="container mx-auto">
-          {children}
-        </div>
-      </body>
-    </html>
-  )
+    return (
+        <html lang="en">
+            <body className={`${inter.className} bg-slate-900 min-h-screen`}>
+                <Navbar />
+                <main className="min-h-[calc(100vh-64px)]">
+                    {children}
+                </main>
+            </body>
+        </html>
+    )
 }

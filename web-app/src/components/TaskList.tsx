@@ -1,3 +1,5 @@
+'use client'
+
 import { Task } from '../types/task'
 import TaskItem from './TaskItem'
 
@@ -8,26 +10,22 @@ interface TaskListProps {
   onToggleCompletion: (id: string) => void
 }
 
-export default function TaskList({
-  tasks,
-  onUpdateTask,
-  onDeleteTask,
-  onToggleCompletion
-}: TaskListProps) {
-  if (tasks.length === 0) {
-    return null; // Parent handles empty state now
-  }
-
+export default function TaskList({ tasks, onUpdateTask, onDeleteTask, onToggleCompletion }: TaskListProps) {
   return (
     <div className="space-y-3">
-      {tasks.map((task) => (
-        <TaskItem
+      {tasks.map((task, index) => (
+        <div
           key={task.id}
-          task={task}
-          onUpdate={onUpdateTask}
-          onDelete={onDeleteTask}
-          onToggleCompletion={onToggleCompletion}
-        />
+          className="animate-fadeIn"
+          style={{ animationDelay: `${index * 0.05}s` }}
+        >
+          <TaskItem
+            task={task}
+            onUpdate={onUpdateTask}
+            onDelete={onDeleteTask}
+            onToggleComplete={onToggleCompletion}
+          />
+        </div>
       ))}
     </div>
   )
