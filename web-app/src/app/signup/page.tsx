@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { authService } from '@/services/authService';
+import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 
 // Password requirement checker
 const usePasswordStrength = (password: string) => {
@@ -20,8 +21,8 @@ const usePasswordStrength = (password: string) => {
 const RequirementIndicator = ({ met, label }: { met: boolean; label: string }) => (
   <div className={`flex items-center gap-2 transition-all duration-300 ${met ? 'text-green-400' : 'text-slate-500'}`}>
     <span className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300 ${met
-        ? 'bg-green-500/20 scale-100'
-        : 'bg-slate-700/50 scale-90'
+      ? 'bg-green-500/20 scale-100'
+      : 'bg-slate-700/50 scale-90'
       }`}>
       {met ? (
         <svg className="w-3 h-3 animate-scaleIn" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,6 +39,7 @@ const RequirementIndicator = ({ met, label }: { met: boolean; label: string }) =
 );
 
 export default function SignupPage() {
+  useAuthRedirect();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -192,7 +194,7 @@ export default function SignupPage() {
                     <div className="flex justify-between items-center">
                       <span className="text-xs text-slate-400">Password Strength</span>
                       <span className={`text-xs font-medium ${strengthCount <= 2 ? 'text-red-400' :
-                          strengthCount <= 3 ? 'text-yellow-400' : 'text-green-400'
+                        strengthCount <= 3 ? 'text-yellow-400' : 'text-green-400'
                         }`}>
                         {getStrengthText()}
                       </span>
