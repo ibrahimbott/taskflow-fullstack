@@ -2,7 +2,7 @@ import { Task, TaskCreate, TaskUpdate } from '../types/task'
 import { authService } from './authService'
 
 // API calls go directly to FastAPI backend with JWT auth
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000');
 
 class TaskService {
   private getHeaders(): Record<string, string> {

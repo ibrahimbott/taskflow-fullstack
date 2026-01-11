@@ -3,7 +3,7 @@
  * Handles login, signup, token storage, and auth state management
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000');
 const TOKEN_KEY = 'todo_jwt_token';
 const USER_KEY = 'todo_user';
 
