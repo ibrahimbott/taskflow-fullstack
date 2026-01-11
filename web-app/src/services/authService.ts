@@ -3,7 +3,12 @@
  * Handles login, signup, token storage, and auth state management
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000');
+// Force relative path in production if API URL is set to localhost (common configuration error)
+let apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
+if (process.env.NODE_ENV === 'production' && apiBaseUrl?.includes('localhost')) {
+    apiBaseUrl = '';
+}
+const API_BASE_URL = apiBaseUrl || (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:8000');
 const TOKEN_KEY = 'todo_jwt_token';
 const USER_KEY = 'todo_user';
 
