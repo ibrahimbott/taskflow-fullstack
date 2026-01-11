@@ -1,3 +1,10 @@
+import sys
+import os
+
+# Add the current directory to sys.path to prioritize local modules
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_dir)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.v1.endpoints import tasks, auth
