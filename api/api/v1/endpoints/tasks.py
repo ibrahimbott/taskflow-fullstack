@@ -17,7 +17,7 @@ def get_task_service():
     return TaskService(repository)
 
 
-@router.get("/", response_model=List[Task])
+@router.get("", response_model=List[Task])
 def read_tasks(
     session: Session = Depends(get_session),
     task_service: TaskService = Depends(get_task_service),
@@ -27,7 +27,7 @@ def read_tasks(
     return task_service.get_all_tasks(session, user_id)
 
 
-@router.post("/", response_model=Task)
+@router.post("", response_model=Task)
 def create_task(
     task: TaskCreate,
     session: Session = Depends(get_session),

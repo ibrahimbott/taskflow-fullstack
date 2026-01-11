@@ -18,7 +18,7 @@ class TaskService {
   }
 
   async getAllTasks(): Promise<Task[]> {
-    const response = await fetch(`${API_BASE_URL}/api/tasks/`, {
+    const response = await fetch(`${API_BASE_URL}/api/tasks`, {
       headers: this.getHeaders(),
     })
     if (!response.ok) {
@@ -31,7 +31,7 @@ class TaskService {
   }
 
   async getAllTasksWithFilters(search?: string, category?: string): Promise<Task[]> {
-    let url = `${API_BASE_URL}/api/tasks/`
+    let url = `${API_BASE_URL}/api/tasks`
     const params = new URLSearchParams()
 
     if (search) params.append('search', search)
@@ -51,7 +51,7 @@ class TaskService {
   }
 
   async createTask(taskData: TaskCreate): Promise<Task> {
-    const response = await fetch(`${API_BASE_URL}/api/tasks/`, {
+    const response = await fetch(`${API_BASE_URL}/api/tasks`, {
       method: 'POST',
       headers: this.getHeaders(),
       body: JSON.stringify(taskData),
