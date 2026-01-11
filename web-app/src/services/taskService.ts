@@ -73,8 +73,8 @@ class TaskService {
   }
 
   async completeTask(id: string, completed: boolean): Promise<Task> {
-    const response = await fetch(`${API_BASE_URL}/api/tasks/${id}`, {
-      method: 'PUT',
+    const response = await fetch(`${API_BASE_URL}/api/tasks/${id}/complete`, {
+      method: 'PATCH',
       headers: this.getHeaders(),
       body: JSON.stringify({ completed }),
     })
